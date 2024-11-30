@@ -1,0 +1,65 @@
+body {
+    font-family: verdana;
+    font-size: 12px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container{
+    margin: 20% auto;
+}
+
+#Number {
+    font-size: 3rem;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+
+#control-button{
+    flex-direction: column;
+    margin: auto;
+    max-width: 200px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+}
+
+.ctrlspecial{
+    background-color: tan;
+    width:100%;
+    height: 30px;
+}
+
+.ctrlspecial:hover{
+background-color:rgb(255, 171, 60) ;
+}
+.button{
+    font-size: 1rem;
+    overflow: hidden;
+    padding: 0.5em 2em;
+    margin: 1em 1em;
+    border: none;
+    box-shadow: 0px 3px 4px black;
+}
+.decrease{
+    color: rgb(255, 255, 255);
+    background-color: rgba(138, 26, 26, 0.667);
+}
+
+.decrease:hover{
+    background-color: rgb(138, 26, 26)
+}
+
+.increase{
+    background-color:seashell;
+}
+
+.increase:hover{
+    background-color: rgb(138, 108, 87);
+}
