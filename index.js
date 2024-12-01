@@ -109,3 +109,19 @@ function stopAlarm(){
     site.style.backgroundColor = "whitesmoke";
 }
 
+function saveState() {
+    localStorage.setItem("timerState", JSON.stringify({ mili, isRunning: !!timerInterval }));
+}
+
+function restoreState() {
+    const savedState = JSON.parse(localStorage.getItem("timerState"));
+    if (savedState) {
+        mili = savedState.mili;
+        time = convertMillisecondsToTime(mili);
+        updateDisplay();
+        if (savedState.isRunning) start();
+    }
+}
+
+window.onbeforeunload = saveState; // Save on page unload
+window.onload = restoreState; // Restore on page load
