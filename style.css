@@ -63,3 +63,33 @@ background-color:rgb(255, 171, 60) ;
 .increase:hover{
     background-color: rgb(138, 108, 87);
 }
+
+/* For mobile devices */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+    .web-only{
+        display: none;
+    }
+}
+
+/* For tablets */
+@media (min-width: 601px) and (max-width: 900px) {
+    body {
+        font-size: 16px;
+    }
+    .web-only{
+        display: none;
+    }
+}
+
+/* For desktops */
+@media (min-width: 901px) {
+    body {
+        font-size: 18px;
+    }
+    .web-only{
+        display: block;
+    }
+}
