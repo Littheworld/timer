@@ -44,9 +44,11 @@ function adjustMinutes(num) {
 
 // Fungsi untuk memulai timer
 function start() {
-    stopAlarm();
-    mili = convertTimeToMilliseconds(time); // Konversi array waktu ke milidetik
-    timerInterval = setInterval(mainLoop, 10); // Jalankan fungsi utama setiap 10ms
+    if (time[1] != 0 || mili != 0){
+        stopAlarm();
+        mili = convertTimeToMilliseconds(time); // Konversi array waktu ke milidetik
+        timerInterval = setInterval(mainLoop, 10); // Jalankan fungsi utama setiap 10ms
+    }
 }
 
 // Fungsi utama untuk mengurangi waktu
@@ -109,19 +111,32 @@ function stopAlarm(){
     site.style.backgroundColor = "whitesmoke";
 }
 
+
+// Save State to LocalStorage
 function saveState() {
-    localStorage.setItem("timerState", JSON.stringify({ mili, isRunning: !!timerInterval }));
+    const state = {
+        mili,
+        isRunning: !!timerInterval,
+        lastTimestamp: Date.now(),
+    };
+    localStorage.setItem("timerState", JSON.stringify(state));
 }
 
+// Restore State from LocalStorage
 function restoreState() {
-    const savedState = JSON.parse(localStorage.getItem("timerState"));
+    const savedState = localStorage.getItem("timerState");
     if (savedState) {
-        mili = savedState.mili;
+        const { mili: savedMili, isRunning, lastTimestamp } = JSON.parse(savedState);
+        const elapsed = Date.now() - lastTimestamp;
+        mili = Math.max(savedMili - elapsed, 0);
         time = convertMillisecondsToTime(mili);
         updateDisplay();
-        if (savedState.isRunning) start();
+
+        if (isRunning && mili > 0) {
+            start();
+        }
     }
 }
 
-window.onbeforeunload = saveState; // Save on page unload
-window.onload = restoreState; // Restore on page load
+window.addEventListener("beforeunload", saveState);
+window.addEventListener("load", restoreState);
